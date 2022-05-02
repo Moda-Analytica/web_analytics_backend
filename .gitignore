@@ -45,3 +45,4 @@ nodeLanguageServer.*/**
 dist/**
 .env
 .idea
+Dockerfile
