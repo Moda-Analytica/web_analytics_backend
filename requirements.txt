@@ -1,5 +1,7 @@
 certifi
+dnspython
 fastapi
 motor
+pymongo
 python-dotenv
 uvicorn
