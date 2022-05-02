@@ -1,4 +1,3 @@
-import pymongo
 import motor.motor_asyncio
 from bson.objectid import ObjectId
 
@@ -11,7 +10,9 @@ client = motor.motor_asyncio.AsyncIOMotorClient(settings.mongodb_url)
 # print(client.)
 db = client.stats
 
-stats_collection = db.get_collection("stats_data")
+
+
+# stats_collection = db.get_collection("stats_data")
 
 
 def stats_helper(stats) -> dict:
@@ -26,8 +27,10 @@ def stats_helper(stats) -> dict:
 
 
 async def retrieve_metrics():
+    print(db["stats_data"])
+
     metrics = []
-    async for stat in stats_collection.find():
+    async for stat in db["stats_data"].find():
         metrics.append(stats_helper(stat))
     return metrics
 

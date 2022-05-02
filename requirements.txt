@@ -1,6 +1,5 @@
 certifi
 fastapi
 motor
-pymongo
 python-dotenv
 uvicorn

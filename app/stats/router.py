@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-
+import motor.motor_asyncio
 
 from .database import retrieve_metrics
 from .schemas import (MetricSchema, response_model, error_response_model)
