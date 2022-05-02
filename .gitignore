@@ -43,3 +43,5 @@ pydevd*.log
 nodeLanguageServer/**
 nodeLanguageServer.*/**
 dist/**
+.env
+.idea
