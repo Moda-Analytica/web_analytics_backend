@@ -14,7 +14,6 @@ db = client.stats
 
 @app.get("/")
 def hello_world():
-    print(db)
     return {"hello": "world"}
 
 
