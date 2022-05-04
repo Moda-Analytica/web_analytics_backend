@@ -28,8 +28,9 @@ async def get_sub_sectors(sector_id: str):
     raise HTTPException(status_code=404, detail=f"Sub sectors not found for {sector_id} sector.")
 
 
-@router.get("/{sub_sector_id}", response_description="Metrics retrieved for sub sector", response_model=SubSectorSchema)
-async def get_metric_for_sub_sector(sub_sector_id: str):
-    if (stat := await collection.find_one({"_id": sub_sector_id})) is not None:
+@router.get("/{sector_id}/{sub_sector_id}", response_description="Metrics retrieved for sub sector",
+            response_model=SubSectorSchema)
+async def get_metric_for_sub_sector(sector_id:str, sub_sector_id: str):
+    if (stat := await collection.find_one({"_id": sub_sector_id, "sector": sector_id})) is not None:
         return stat
-    raise HTTPException(status_code=404, detail=f"Stat {sub_sector_id} was not found")
+    raise HTTPException(status_code=404, detail=f"Stat {sub_sector_id} was not found under {sector_id}")
