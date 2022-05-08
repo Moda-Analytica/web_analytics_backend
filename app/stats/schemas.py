@@ -4,6 +4,12 @@ from pydantic import BaseModel, Field
 from bson import ObjectId
 
 
+class SectorSchema(BaseModel):
+    id: int = Field(..., alias="_id")
+    name: str = Field(...)
+    description: str = Field(...)
+
+
 class SubSectorSchema(BaseModel):
     id: str = Field(..., alias="_id")
     metric: str = Field(...)
