@@ -17,6 +17,7 @@ class SubSectorSchema(BaseModel):
     sector: str = Field(...)
     value_type: str = Field(...)
     reference: str = Field(...)
+    report: str = Field(...)
 
 
     class Config:

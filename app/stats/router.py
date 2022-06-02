@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from fastapi import APIRouter, HTTPException
 import motor.motor_asyncio
@@ -44,3 +44,14 @@ async def get_metric_for_sub_sector(sector_id:str, sub_sector_id: str):
     if (stat := await sub_sector_collection.find_one({"_id": sub_sector_id, "sector": sector_id})) is not None:
         return stat
     raise HTTPException(status_code=404, detail=f"Stat {sub_sector_id} was not found under {sector_id}")
+
+
+@router.get("/search", response_model=List[SubSectorSchema])
+async def search_metric(q: Optional[str] = None):
+    query = {"$search": q}
+    stats = await sub_sector_collection.find({"$text": query}).to_list(None)
+    if stats is not None and stats != []:
+        return stats
+    elif stats == []:
+        return []
+
