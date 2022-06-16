@@ -3,7 +3,13 @@ import motor.motor_asyncio
 
 
 from app.config import get_settings
-from .webpush_handler import trigger_push_notifications_for_subscriptions
+
+
+
+from .schemas import PushNotificationSchema 
+from .celery_worker import celery_push_notifications
+
+
 
 settings = get_settings()
 
@@ -25,10 +31,7 @@ async def create_push_notifications(request: Request):
 
 
 @router.post("/trigger-push-notifications")
-async def push_notifications(request: Request):
-    data = await request.json()
-    subscriptions = await push_notification_collection.find().to_list(None)
-    results = trigger_push_notifications_for_subscriptions(subscriptions, data.get('title'), data.get('body'))
-
-    return {"status": "success", "result": results}
+def push_notifications(notification: PushNotificationSchema):
+    celery_push_notifications.delay(notification.title, notification.body)
+    return {"status": "in progress"}
 

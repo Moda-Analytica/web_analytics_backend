@@ -7,7 +7,7 @@ import motor.motor_asyncio
 from app.config import get_settings
 
 
-from .schemas import (SectorSchema,SubSectorSchema, response_model, error_response_model)
+from .schemas import (SectorSchema, SubSectorSchema, InfographicSchema)
 
 
 settings = get_settings()
@@ -28,6 +28,17 @@ async def get_sectors():
     raise HTTPException(status_code=404, detail=f"An error occurred.")
 
 
+@router.get("/infographics", response_model=List[InfographicSchema])
+async def get_infographics():
+    infographics_collection = db["stats_infographics"]
+    infographics = await infographics_collection.find().to_list(None)
+
+    if infographics is not None and infographics != []:
+        return infographics
+
+    raise HTTPException(status_code=404, detail=f"An error occurred.")
+
+
 @router.get("/{sector_id}/sub-sectors", response_description="Sub sectors for specified sector",
             response_model=List[SubSectorSchema])
 async def get_sub_sectors(sector_id: str):
@@ -35,15 +46,17 @@ async def get_sub_sectors(sector_id: str):
     stats = await sub_sector_collection.find(query).to_list(None)
     if stats is not None and stats != []:
         return stats
-    raise HTTPException(status_code=404, detail=f"Sub sectors not found for {sector_id} sector.")
+    raise HTTPException(
+        status_code=404, detail=f"Sub sectors not found for {sector_id} sector.")
 
 
 @router.get("/{sector_id}/{sub_sector_id}", response_description="Metrics retrieved for sub sector",
             response_model=SubSectorSchema)
-async def get_metric_for_sub_sector(sector_id:str, sub_sector_id: str):
+async def get_metric_for_sub_sector(sector_id: str, sub_sector_id: str):
     if (stat := await sub_sector_collection.find_one({"_id": sub_sector_id, "sector": sector_id})) is not None:
         return stat
-    raise HTTPException(status_code=404, detail=f"Stat {sub_sector_id} was not found under {sector_id}")
+    raise HTTPException(
+        status_code=404, detail=f"Stat {sub_sector_id} was not found under {sector_id}")
 
 
 @router.get("/search", response_model=List[SubSectorSchema])
@@ -54,4 +67,3 @@ async def search_metric(q: Optional[str] = None):
         return stats
     elif stats == []:
         return []
-
