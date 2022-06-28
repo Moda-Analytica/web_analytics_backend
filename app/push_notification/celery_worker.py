@@ -12,8 +12,8 @@ settings = get_settings()
 
 app = Celery(__name__)
 app.conf.broker_url = settings.celery_broker_url
-app.conf.result_backend = settings.celery_result_backend
-app.conf.result_serializer = 'json'
+app.conf.result_backend = settings.celery_broker_url
+
 
 client = motor.motor_asyncio.AsyncIOMotorClient(settings.mongodb_url)
 db = client.stats

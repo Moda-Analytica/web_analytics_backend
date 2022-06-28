@@ -9,13 +9,12 @@ class Settings(BaseSettings):
     vapid_public_key: str = Field(..., env="VAPID_PUBLIC_KEY")
     vapid_private_key: str = Field(..., env="VAPID_PRIVATE_KEY")
     vapid_claim_email: str = Field(..., env="VAPID_CLAIM_EMAIL")
-    celery_broker_url: str = Field(env="CELERY_BROKER_URL")
-    celery_result_backend: str = Field(env="CELERY_RESULT_BACKEND")
-    mail_username: str = Field(env="MAIL_USERNAME")
-    mail_password: str = Field(env="MAIL_PASSWORD")
-    mail_from: str = Field(env="MAIL_FROM")
-    mail_port: int = Field(env="MAIL_PORT")
-    mail_server: str = Field(env="MAIL_SERVER")
+    celery_broker_url: str = Field(env="REDIS_URL")
+    # mail_username: str = Field(env="MAIL_USERNAME")
+    # mail_password: str = Field(env="MAIL_PASSWORD")
+    # mail_from: str = Field(env="MAIL_FROM")
+    # mail_port: int = Field(env="MAIL_PORT")
+    # mail_server: str = Field(env="MAIL_SERVER")
 
 
     class Config:

@@ -29,18 +29,18 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-conf = ConnectionConfig(
-    MAIL_USERNAME=settings.mail_username,
-    MAIL_PASSWORD=settings.mail_password,
-    MAIL_FROM=settings.mail_from,
-    MAIL_PORT=465,
-    MAIL_SERVER='smtp.gmail.com',
-    MAIL_FROM_NAME=settings.mail_username,
-    MAIL_TLS=False,
-    MAIL_SSL=True,
-    USE_CREDENTIALS=True,
-    MAIL_DEBUG=1
-)
+# conf = ConnectionConfig(
+#     MAIL_USERNAME=settings.mail_username,
+#     MAIL_PASSWORD=settings.mail_password,
+#     MAIL_FROM=settings.mail_from,
+#     MAIL_PORT=465,
+#     MAIL_SERVER='smtp.gmail.com',
+#     MAIL_FROM_NAME=settings.mail_username,
+#     MAIL_TLS=False,
+#     MAIL_SSL=True,
+#     USE_CREDENTIALS=True,
+#     MAIL_DEBUG=1
+# )
 
 app.include_router(SectorRouter, tags=["Sector"], prefix="/sector")
 app.include_router(NotificationRouter, tags=["Push Notification"], prefix="")
@@ -60,6 +60,6 @@ def contact_form(contact: Contact, background_tasks: BackgroundTasks):
         body=contact.message,
         subtype="html"
     )
-    fm = FastMail(conf)
-    background_tasks.add_task(fm.send_message, message)
+    # fm = FastMail(conf)
+    # background_tasks.add_task(fm.send_message, message)
     return {"message": "Successfully contact the modanalytical team. We'll be with you shortly.", }
