@@ -13,7 +13,7 @@ app = FastAPI()
 settings = get_settings()
 
 origins = [
-    "https://www.statsmetrics.ng/",
+    "https://www.statsmetrics.ng",
     "https://moda-analytica.netlify.app",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
