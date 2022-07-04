@@ -8,9 +8,7 @@ settings = get_settings()
 
 async def connect_to_mongo():
     db.client = AsyncIOMotorClient(str(settings.mongodb_url))
-    print("open connection")
 
 
 async def close_mongo_connection():
     db.client.close()
-    print("close connection")
