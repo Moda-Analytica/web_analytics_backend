@@ -15,3 +15,12 @@ async def get_all_sectors(conn: AsyncIOMotorClient):
     if sectors is not None and sectors != []:
         return sectors
     raise HTTPException(status_code=404, detail=f"An error occurred.")
+
+
+async def total_stats(conn: AsyncIOMotorClient):
+
+    info = await conn[DATABASE_NAME]["run_instance"].find().limit(1).sort([('$natural', -1)]).to_list(None)
+
+    if info and info != []:
+        return info[0]
+    raise HTTPException(status_code=404, detail=f"An error occurred.")

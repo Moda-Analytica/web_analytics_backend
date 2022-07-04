@@ -11,9 +11,6 @@ from .push_notification.router import router as NotificationRouter
 from .api.api_v1.api import router as api_router
 
 
-# from .schemas import ContactSchema as Contact
-
-
 settings = get_settings()
 
 origins = [
@@ -21,8 +18,6 @@ origins = [
     "https://moda-analytica.netlify.app",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-
-
 ]
 app = FastAPI(title=settings.project_name)
 
@@ -35,6 +30,8 @@ app.add_middleware(
 )
 
 app.add_event_handler("startup", connect_to_mongo)
+app.add_event_handler("shutdown", close_mongo_connection)
+
 # conf = ConnectionConfig(
 #     MAIL_USERNAME=settings.mail_username,
 #     MAIL_PASSWORD=settings.mail_password,
