@@ -1,9 +1,10 @@
-from urllib.request import Request
-from fastapi import HTTPException, Request
+from fastapi import Request
 
-from ..db.mongodb import AsyncIOMotorClient
 from ..config import get_settings
+from ..celery_worker import celery_push_notifications
+from ..db.mongodb import AsyncIOMotorClient
 from ..schemas.push_notification import PushNotificationSchema
+
 
 
 settings = get_settings()
@@ -21,6 +22,6 @@ async def create_subscription(conn: AsyncIOMotorClient, request: Request):
     return {"success": "Subscription successful."}
 
 
-def push_notifications(conn: AsyncIOMotorClient, notification: PushNotificationSchema):
-    # celery_push_notifications.delay(notification.title, notification.body)
+def push_notifications_to_users(notification: PushNotificationSchema):
+    celery_push_notifications.delay(notification.title, notification.body)
     return {"status": "in progress"}

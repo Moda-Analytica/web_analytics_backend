@@ -7,7 +7,6 @@ import uvicorn
 
 from .config import get_settings
 from .db.mongodb_utils import close_mongo_connection, connect_to_mongo
-from .push_notification.router import router as NotificationRouter
 from .api.api_v1.api import router as api_router
 
 
@@ -46,7 +45,6 @@ app.add_event_handler("shutdown", close_mongo_connection)
 # )
 
 app.include_router(api_router, tags=["Sector"], prefix="/sector")
-app.include_router(NotificationRouter, tags=["Push Notification"], prefix="")
 
 
 @app.get("/")

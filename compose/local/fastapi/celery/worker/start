@@ -4,4 +4,4 @@ set -o errexit
 set -o nounset
 
 
-celery -A app.push_notification.celery_worker.app worker -l INFO
+celery -A app.celery_worker.app worker -l INFO
