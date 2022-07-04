@@ -12,13 +12,8 @@ app.conf.broker_url = settings.celery_broker_url
 app.conf.result_backend = settings.celery_broker_url
 
 
-# client = motor.motor_asyncio.AsyncIOMotorClient(settings.mongodb_url)
-# db = client.stats
-
 DATABASE_NAME = settings.database_name
 
-
-# push_notification_collection = my_db["stats_push_notification"]
 
 
 @app.task(name='push_notifications')

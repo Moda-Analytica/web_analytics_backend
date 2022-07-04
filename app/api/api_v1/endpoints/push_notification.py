@@ -15,5 +15,5 @@ async def create_push_notification_subscription(request: Request, db: AsyncIOMot
 
 
 @router.post("/trigger-push-notifications")
-def push_notifications(notification: PushNotificationSchema, db: AsyncIOMotorClient = Depends(get_database)):
+def push_notifications(notification: PushNotificationSchema):
     return push_notifications_to_users(notification)
