@@ -10,6 +10,8 @@ class Settings(BaseSettings):
     vapid_private_key: str = Field(..., env="VAPID_PRIVATE_KEY")
     vapid_claim_email: str = Field(..., env="VAPID_CLAIM_EMAIL")
     celery_broker_url: str = Field(env="REDIS_URL")
+    project_name: str = Field(env="PROJECT_NAME")
+    database_name: str = Field(env="DATABASE_NAME")
     # mail_username: str = Field(env="MAIL_USERNAME")
     # mail_password: str = Field(env="MAIL_PASSWORD")
     # mail_from: str = Field(env="MAIL_FROM")

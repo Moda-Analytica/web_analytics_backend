@@ -2,14 +2,18 @@ from fastapi import FastAPI, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 
 from fastapi_mail import FastMail, MessageSchema, ConnectionConfig
+import uvicorn
+
 
 from .config import get_settings
+from .db.mongodb_utils import close_mongo_connection, connect_to_mongo
 from .push_notification.router import router as NotificationRouter
-from .stats.router import router as SectorRouter
+from .api.api_v1.api import router as api_router
 
-from .schemas import ContactSchema as Contact
 
-app = FastAPI()
+# from .schemas import ContactSchema as Contact
+
+
 settings = get_settings()
 
 origins = [
@@ -20,6 +24,7 @@ origins = [
 
 
 ]
+app = FastAPI(title=settings.project_name)
 
 app.add_middleware(
     CORSMiddleware,
@@ -29,6 +34,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.add_event_handler("startup", connect_to_mongo)
 # conf = ConnectionConfig(
 #     MAIL_USERNAME=settings.mail_username,
 #     MAIL_PASSWORD=settings.mail_password,
@@ -42,7 +48,7 @@ app.add_middleware(
 #     MAIL_DEBUG=1
 # )
 
-app.include_router(SectorRouter, tags=["Sector"], prefix="/sector")
+app.include_router(api_router, tags=["Sector"], prefix="/sector")
 app.include_router(NotificationRouter, tags=["Push Notification"], prefix="")
 
 
@@ -51,15 +57,15 @@ def hello_world():
     return {"hello": "world"}
 
 
-@app.post("/contact-us")
-def contact_form(contact: Contact, background_tasks: BackgroundTasks):
-    message = MessageSchema(
-        subject=contact.subject,
-        # List of recipients
-        recipients=['info@modanalytica.com'],
-        body=contact.message,
-        subtype="html"
-    )
-    # fm = FastMail(conf)
-    # background_tasks.add_task(fm.send_message, message)
-    return {"message": "Successfully contact the modanalytical team. We'll be with you shortly.", }
+# @app.post("/contact-us")
+# def contact_form(contact: Contact, background_tasks: BackgroundTasks):
+#     message = MessageSchema(
+#         subject=contact.subject,
+#         # List of recipients
+#         recipients=['info@modanalytica.com'],
+#         body=contact.message,
+#         subtype="html"
+#     )
+#     # fm = FastMail(conf)
+#     # background_tasks.add_task(fm.send_message, message)
+#     return {"message": "Successfully contact the modanalytical team. We'll be with you shortly.", }

@@ -24,11 +24,6 @@ class SubSectorSchema(BaseModel):
         json_encoders = {ObjectId: str}
 
 
-class InfographicSchema(BaseModel):
-    sector: str = Field(...)
-    title: str = Field(...)
-    description: str = Field(...)
-    report: str = Field(...)
 
 
 def response_model(data, message):
