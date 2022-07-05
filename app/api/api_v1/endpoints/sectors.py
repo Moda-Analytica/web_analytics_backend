@@ -17,5 +17,5 @@ async def get_sectors(db: AsyncIOMotorClient = Depends(get_database)):
 
 # response_model=runinstance.RunInstanceSchema
 @router.get("/total_stats")
-async def total_stats_data(db:  AsyncIOMotorClient = Depends(get_database)):
+async def total_stats_data(db: AsyncIOMotorClient = Depends(get_database)):
     return await total_stats(db)
