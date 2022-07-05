@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from .config import get_settings
 from .db.mongodb_utils import close_mongo_connection, connect_to_mongo
 from .api.api_v1.api import router as api_router
+from .api.api_v1.endpoints.push_notification import router as PushNotificationRouter
 
 
 settings = get_settings()
@@ -44,6 +45,7 @@ app.add_event_handler("shutdown", close_mongo_connection)
 # )
 
 app.include_router(api_router, tags=["Sector"], prefix="/sector")
+app.include_router(PushNotificationRouter, tags=["Push Notification"])
 
 
 @app.get("/")

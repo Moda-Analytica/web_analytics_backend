@@ -1,8 +1,8 @@
 import pytest 
 
-from fastapi import Depends
 
-from app.db.mongodb import AsyncIOMotorClient, get_database
+
+from app.db.mongodb import AsyncIOMotorClient
 
 
 def test_get_infographics(test_client, monkeypatch):
@@ -22,8 +22,7 @@ def test_get_infographics(test_client, monkeypatch):
         },
     ]
 
-    async def mock_get_all_infographics(db: AsyncIOMotorClient = Depends(get_database)):
-        print("Came here, Moyosore")
+    async def mock_get_all_infographics(db: AsyncIOMotorClient):
         return test_infographic_data
 
     monkeypatch.setattr(

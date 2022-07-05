@@ -1,10 +1,6 @@
 import pytest
 
-from fastapi import Depends
-
-
-from app.crud import sectors
-from app.db.mongodb import AsyncIOMotorClient, get_database
+from app.db.mongodb import AsyncIOMotorClient
 
 
 def test_get_all_sectors(test_client, monkeypatch):
@@ -21,7 +17,7 @@ def test_get_all_sectors(test_client, monkeypatch):
         }
     ]
 
-    async def mock_get_sectors(db: AsyncIOMotorClient = Depends(get_database)):
+    async def mock_get_sectors(db: AsyncIOMotorClient):
         return test_data
 
     monkeypatch.setattr(
@@ -42,7 +38,7 @@ def test_total_stats(test_client, monkeypatch):
         "sectors_added": 0
     }
 
-    async def mock_total_stats(db: AsyncIOMotorClient = Depends(get_database)):
+    async def mock_total_stats(db: AsyncIOMotorClient):
         return test_data
 
     monkeypatch.setattr('app.api.api_v1.endpoints.sectors.total_stats',
