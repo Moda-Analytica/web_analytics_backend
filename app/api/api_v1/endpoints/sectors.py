@@ -3,9 +3,9 @@ from typing import List
 from fastapi import APIRouter, Depends
 
 
-from ....crud.sectors import get_all_sectors, total_stats
-from ....db.mongodb import AsyncIOMotorClient, get_database
-from ....schemas import sectors, runinstance
+from app.crud.sectors import get_all_sectors, total_stats
+from app.db.mongodb import AsyncIOMotorClient, get_database
+from app.schemas import sectors, runinstance
 
 
 router = APIRouter()

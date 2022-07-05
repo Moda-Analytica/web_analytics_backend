@@ -2,8 +2,8 @@ from typing import Optional
 
 from fastapi import HTTPException
 
-from ..db.mongodb import AsyncIOMotorClient
-from ..config import get_settings
+from app.db.mongodb import AsyncIOMotorClient
+from app.config import get_settings
 
 
 settings = get_settings()

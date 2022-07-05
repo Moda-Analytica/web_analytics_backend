@@ -3,7 +3,7 @@ import json
 from pywebpush import webpush, WebPushException
 
 
-from ..config import get_settings
+from app.config import get_settings
 
 
 settings = get_settings()

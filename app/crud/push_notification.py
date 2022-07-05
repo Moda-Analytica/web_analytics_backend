@@ -1,9 +1,9 @@
 from fastapi import Request
 
-from ..config import get_settings
-from ..celery_worker import celery_push_notifications
-from ..db.mongodb import AsyncIOMotorClient
-from ..schemas.push_notification import PushNotificationSchema
+from app.config import get_settings
+from app.celery_worker import celery_push_notifications
+from app.db.mongodb import AsyncIOMotorClient
+from app.schemas.push_notification import PushNotificationSchema
 
 
 

@@ -1,8 +1,7 @@
 from fastapi import FastAPI, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 
-from fastapi_mail import FastMail, MessageSchema, ConnectionConfig
-import uvicorn
+# from fastapi_mail import FastMail, MessageSchema, ConnectionConfig
 
 
 from .config import get_settings

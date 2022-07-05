@@ -4,10 +4,10 @@ from typing import List, Optional
 from fastapi import APIRouter, Depends
 
 
-from ....crud.subsectors import (
+from app.crud.subsectors import (
     get_sub_sectors, search_metric, get_metric_for_sub_sector)
-from ....db.mongodb import AsyncIOMotorClient, get_database
-from ....schemas.subsectors import SubSectorSchema
+from app.db.mongodb import AsyncIOMotorClient, get_database
+from app.schemas.subsectors import SubSectorSchema
 
 
 router = APIRouter()

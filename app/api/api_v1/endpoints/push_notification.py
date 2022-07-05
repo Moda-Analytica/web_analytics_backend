@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Request, Depends
 
-from ....crud.push_notification import create_subscription, push_notifications_to_users
+from app.crud.push_notification import create_subscription, push_notifications_to_users
 
-from ....db.mongodb import AsyncIOMotorClient, get_database
-from ....schemas.push_notification import PushNotificationSchema
+from app.db.mongodb import AsyncIOMotorClient, get_database
+from app.schemas.push_notification import PushNotificationSchema
 
 
 router = APIRouter()

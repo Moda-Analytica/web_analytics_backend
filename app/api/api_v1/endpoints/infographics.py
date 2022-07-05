@@ -3,10 +3,10 @@ from typing import List
 from fastapi import APIRouter, Depends
 
 
-from ....crud.infographics import get_all_infographics
+from app.crud.infographics import get_all_infographics
 
-from ....db.mongodb import AsyncIOMotorClient, get_database
-from ....schemas.infographics import InfographicSchema
+from app.db.mongodb import AsyncIOMotorClient, get_database
+from app.schemas.infographics import InfographicSchema
 
 router = APIRouter()
 
