@@ -10,6 +10,8 @@ class SubSectorSchema(BaseModel):
     value_type: str = Field(...)
     reference: str = Field(...)
     report: str = Field(...)
+    year: str = Field(...)
+    value: str = Field(...)
 
     class Config:
         allow_population_by_field_name = True
