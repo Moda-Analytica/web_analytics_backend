@@ -1,5 +1,3 @@
-certifi
-dnspython
 fastapi
 motor
 pymongo
