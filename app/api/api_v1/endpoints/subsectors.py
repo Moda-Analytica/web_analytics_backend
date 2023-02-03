@@ -24,6 +24,7 @@ async def get_subsectors(sector_id: str, db: AsyncIOMotorClient = Depends(get_da
 async def get_metric_for_subsector(sector_id: str, sub_sector_id: str, db: AsyncIOMotorClient = Depends(get_database)):
     return await get_metric_for_sub_sector(db, sector_id, sub_sector_id)
    
+   
 
 @router.get("/search", response_model=List[SubSectorSchema])
 async def search_metric_data(q: Optional[str] = None, db: AsyncIOMotorClient = Depends(get_database)):
